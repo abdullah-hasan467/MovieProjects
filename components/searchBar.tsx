@@ -1,7 +1,8 @@
 import { icons } from "@/constants/icons";
 import React from "react";
 import { Image, TextInput, View } from "react-native";
-interface Props{
+
+interface Props {
     placeholder:string;
     onPress ? : () => void;
 }
