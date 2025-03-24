@@ -10,6 +10,23 @@ export const TBDB_CONFIG ={
 
 }
 
+export const fetchMovies = async({query}:{query:string}) =>{
+    // const endpoint = `${TBDB_CONFIG.BASE_URL}/search/movie?query=${query}&api_key=${TBDB_CONFIG.API_KEY}`;
+    const endpoint = query ? 
+    `${TBDB_CONFIG.BASE_URL}/search/movie?query=${encodeURIComponent(query)}&api_key=${TBDB_CONFIG.API_KEY}` :
+    `${TBDB_CONFIG.BASE_URL}/discover/movie?sort_by=popularity.desc`;
+    const response = await fetch(endpoint,{
+        method:'GET',
+        headers:TBDB_CONFIG.header
+    })
+
+    if(!response.ok){
+        throw new Error(`Failed to fetch Movies: ${response.statusText}`);
+    }
+    const data = await response.json()
+    return data.results;
+}
+
 
 
 // const url = 'https://api.themoviedb.org/3/keyword/keyword_id/movies?include_adult=false&language=en-US&page=1';
